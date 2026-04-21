@@ -88,16 +88,13 @@
     color: var(--text-2);
   }
 
-  .how-pill strong {
-    color: var(--blue);
-    font-weight: 500;
-  }
+  .how-pill strong { color: var(--blue); font-weight: 500; }
 
   .app {
     max-width: 960px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 260px 1fr;
+    grid-template-columns: 270px 1fr;
     gap: 1.5rem;
     align-items: start;
   }
@@ -118,7 +115,12 @@
     text-transform: uppercase;
     color: var(--text-3);
     margin-bottom: 1.25rem;
-    font-family: 'Georgia', serif;
+  }
+
+  .ctrl-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 1rem 0 0.85rem;
   }
 
   .ctrl-group { margin-bottom: 1.1rem; }
@@ -130,14 +132,9 @@
     font-size: 13px;
     color: var(--text-2);
     margin-bottom: 5px;
-    font-family: 'Georgia', serif;
   }
 
-  .ctrl-val {
-    font-size: 13px;
-    color: var(--text);
-    font-weight: 500;
-  }
+  .ctrl-val { font-size: 13px; color: var(--text); font-weight: 500; }
 
   .ctrl-hint {
     font-size: 11px;
@@ -145,6 +142,20 @@
     font-style: italic;
     margin-top: 3px;
   }
+
+  .derived-util {
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 6px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+  }
+
+  .derived-util.green  { color: var(--green); }
+  .derived-util.amber  { color: var(--amber); }
+  .derived-util.coral  { color: var(--coral); }
 
   input[type=range] {
     -webkit-appearance: none;
@@ -190,9 +201,48 @@
     .pill-other   { background: #2c2c2a; color: #b4b2a9; }
   }
 
+  /* Lines slider with labels */
+  .lines-labels {
+    position: relative;
+    height: 16px;
+    margin-bottom: 0;
+  }
+
+  .lines-label {
+    position: absolute;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: var(--text-3);
+    font-style: italic;
+    letter-spacing: 0.02em;
+  }
+
+  .lines-ticks {
+    position: relative;
+    height: 8px;
+  }
+
+  .lines-tick {
+    position: absolute;
+    top: 4px;
+    width: 1px;
+    height: 4px;
+    background: var(--border-strong);
+    transform: translateX(-50%);
+  }
+
+  .lines-nums {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--text-3);
+    margin-top: 2px;
+    padding: 0 1px;
+  }
+
   .right { display: flex; flex-direction: column; gap: 1rem; }
 
-  .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
 
   .metric {
     background: var(--surface);
@@ -207,17 +257,35 @@
     letter-spacing: 0.06em;
     color: var(--text-3);
     margin-bottom: 6px;
-    font-family: 'Georgia', serif;
   }
 
   .metric-val {
-    font-size: 26px;
+    font-size: 24px;
     font-weight: normal;
     color: var(--text);
     letter-spacing: -0.02em;
   }
 
   .metric-sub { font-size: 11px; color: var(--text-3); margin-top: 3px; font-style: italic; }
+
+  .cap-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'Georgia', serif;
+  }
+
+  .cap-badge.available   { background: #d4edda; color: #155724; }
+  .cap-badge.tightening  { background: #fff3cd; color: #856404; }
+  .cap-badge.constrained { background: #f8d7da; color: #721c24; }
+
+  @media (prefers-color-scheme: dark) {
+    .cap-badge.available   { background: #0d3320; color: #8fd8a8; }
+    .cap-badge.tightening  { background: #3d2e00; color: #ffd666; }
+    .cap-badge.constrained { background: #3d0f13; color: #f5a0a8; }
+  }
 
   .tab-bar {
     display: flex;
@@ -284,10 +352,39 @@
     font-style: italic;
   }
 
-  /* Data Input tab */
+  .sample-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2px;
+  }
+
+  .sample-label {
+    font-size: 12px;
+    color: var(--text-3);
+    font-style: italic;
+  }
+
+  .sample-btn {
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border-strong);
+    background: var(--surface);
+    color: var(--text-2);
+    font-family: 'Georgia', serif;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .sample-btn:hover {
+    border-color: var(--blue);
+    color: var(--text);
+  }
+
+  /* Data Input */
   .data-section { display: flex; flex-direction: column; gap: 1rem; }
 
-  /* CSV upload zone */
   .csv-zone {
     background: var(--surface);
     border: 2px dashed var(--border-strong);
@@ -299,19 +396,13 @@
     position: relative;
   }
   .csv-zone.drag-over { border-color: var(--blue); background: var(--surface2); }
-  .csv-zone input[type=file] {
-    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
-  }
-  .csv-icon {
-    width: 36px; height: 36px; margin: 0 auto 10px;
-    background: var(--surface2); border-radius: 8px;
-    display: flex; align-items: center; justify-content: center; font-size: 20px;
-  }
+  .csv-zone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+  .csv-icon { width: 36px; height: 36px; margin: 0 auto 10px; background: var(--surface2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
   .csv-zone-title { font-size: 14px; color: var(--text); margin-bottom: 4px; }
   .csv-zone-sub   { font-size: 12px; color: var(--text-3); font-style: italic; }
   .csv-zone-link  { color: var(--blue); text-decoration: underline; cursor: pointer; }
 
-  .csv-success { display: none; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 14px; font-size: 12px; color: var(--text-2); margin-top: 0.75rem; }
+  .csv-success { display: none; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 14px; font-size: 12px; color: var(--text-2); }
   .csv-success.visible { display: block; }
   .csv-filename { font-weight: 500; color: var(--text); }
 
@@ -320,178 +411,55 @@
   .col-mapper-title { font-size: 13px; color: var(--text); margin-bottom: 0.75rem; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
   .col-mapper-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 0.75rem; }
   .col-map-group label { display: block; font-size: 11px; color: var(--text-3); margin-bottom: 4px; font-style: italic; }
-  .col-map-group select {
-    width: 100%; padding: 6px 8px; background: var(--surface2);
-    border: 1px solid var(--border); border-radius: var(--radius);
-    font-size: 13px; color: var(--text); font-family: 'Georgia', serif; outline: none; cursor: pointer;
-  }
+  .col-map-group select { width: 100%; padding: 6px 8px; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); font-size: 13px; color: var(--text); font-family: 'Georgia', serif; outline: none; cursor: pointer; }
   .col-map-group select:focus { border-color: var(--blue); }
   .csv-preview { font-size: 11px; color: var(--text-3); font-style: italic; margin-top: 4px; }
-  .load-csv-btn {
-    width: 100%; padding: 9px; background: var(--blue); color: #fff;
-    border: none; border-radius: var(--radius); font-size: 13px;
-    font-family: 'Georgia', serif; cursor: pointer; transition: opacity 0.15s; margin-top: 0.5rem;
-  }
+  .load-csv-btn { width: 100%; padding: 9px; background: var(--blue); color: #fff; border: none; border-radius: var(--radius); font-size: 13px; font-family: 'Georgia', serif; cursor: pointer; transition: opacity 0.15s; margin-top: 0.5rem; }
   .load-csv-btn:hover { opacity: 0.88; }
-  .divider-or {
-    display: flex; align-items: center; gap: 12px;
-    font-size: 12px; color: var(--text-3);
-  }
-  .divider-or::before, .divider-or::after {
-    content: ''; flex: 1; height: 1px; background: var(--border);
-  }
 
-  .data-intro {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--green);
-    border-radius: var(--radius);
-    padding: 12px 16px;
-    font-size: 13px;
-    color: var(--text-2);
-    font-style: italic;
-  }
+  .divider-or { display: flex; align-items: center; gap: 12px; font-size: 12px; color: var(--text-3); }
+  .divider-or::before, .divider-or::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .data-intro { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--green); border-radius: var(--radius); padding: 12px 16px; font-size: 13px; color: var(--text-2); font-style: italic; }
 
   .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 
-  .data-box {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 1rem 1.1rem;
-  }
-
+  .data-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1rem 1.1rem; }
   .data-box-title { font-size: 13px; color: var(--text); margin-bottom: 3px; }
+  .data-box-desc { font-size: 11px; color: var(--text-3); font-style: italic; margin-bottom: 8px; }
 
-  .data-box-desc {
-    font-size: 11px;
-    color: var(--text-3);
-    font-style: italic;
-    margin-bottom: 8px;
-  }
-
-  textarea {
-    width: 100%;
-    height: 130px;
-    font-family: 'Georgia', serif;
-    font-size: 13px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 8px 10px;
-    color: var(--text);
-    resize: vertical;
-    outline: none;
-    line-height: 1.5;
-  }
-
+  textarea { width: 100%; height: 130px; font-family: 'Georgia', serif; font-size: 13px; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 10px; color: var(--text); resize: vertical; outline: none; line-height: 1.5; }
   textarea:focus { border-color: var(--blue); }
 
   .data-company-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 
-  .parse-btn {
-    width: 100%;
-    padding: 10px;
-    background: var(--blue);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius);
-    font-size: 13px;
-    font-family: 'Georgia', serif;
-    cursor: pointer;
-    margin-top: 0.25rem;
-    transition: opacity 0.15s;
-  }
-
+  .parse-btn { width: 100%; padding: 10px; background: var(--blue); color: #fff; border: none; border-radius: var(--radius); font-size: 13px; font-family: 'Georgia', serif; cursor: pointer; transition: opacity 0.15s; }
   .parse-btn:hover { opacity: 0.88; }
 
-  .derivation {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 1rem 1.25rem;
-  }
-
-  .deriv-title {
-    font-size: 13px;
-    color: var(--text);
-    margin-bottom: 1rem;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 8px;
-  }
-
+  .derivation { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1rem 1.25rem; }
+  .deriv-title { font-size: 13px; color: var(--text); margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
   .deriv-steps { display: flex; flex-direction: column; gap: 0.85rem; }
 
-  .deriv-step {
-    display: grid;
-    grid-template-columns: 20px 1fr auto;
-    gap: 10px;
-    align-items: start;
-  }
-
-  .step-num {
-    width: 20px; height: 20px;
-    border-radius: 50%;
-    background: var(--blue);
-    color: #fff;
-    font-size: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
+  .deriv-step { display: grid; grid-template-columns: 20px 1fr auto; gap: 10px; align-items: start; }
+  .step-num { width: 20px; height: 20px; border-radius: 50%; background: var(--blue); color: #fff; font-size: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
   .step-body { display: flex; flex-direction: column; gap: 3px; }
-
   .step-label { font-size: 12px; color: var(--text-2); }
-
-  .step-working {
-    font-size: 11px;
-    color: var(--text-3);
-    font-style: italic;
-  }
-
-  .step-result {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--blue);
-    white-space: nowrap;
-    padding-top: 1px;
-  }
-
+  .step-working { font-size: 11px; color: var(--text-3); font-style: italic; }
+  .step-result { font-size: 14px; font-weight: 500; color: var(--blue); white-space: nowrap; padding-top: 1px; }
   .step-result.pending { color: var(--text-3); font-weight: normal; font-style: italic; font-size: 12px; }
 
-  .apply-btn {
-    width: 100%;
-    padding: 11px;
-    background: var(--green);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius);
-    font-size: 13px;
-    font-family: 'Georgia', serif;
-    cursor: pointer;
-    margin-top: 0.75rem;
-    transition: opacity 0.15s;
-  }
-
+  .apply-btn { width: 100%; padding: 11px; background: var(--green); color: #fff; border: none; border-radius: var(--radius); font-size: 13px; font-family: 'Georgia', serif; cursor: pointer; margin-top: 0.75rem; transition: opacity 0.15s; }
   .apply-btn:hover { opacity: 0.88; }
   .apply-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-  .error-msg {
-    font-size: 12px;
-    color: var(--coral);
-    margin-top: 6px;
-    font-style: italic;
-    display: none;
-  }
+  .error-msg { font-size: 12px; color: var(--coral); margin-top: 6px; font-style: italic; display: none; }
 
   @media (max-width: 720px) {
     .app { grid-template-columns: 1fr; }
     .controls { position: static; }
     .charts-grid, .data-grid, .data-company-row { grid-template-columns: 1fr; }
     .metrics { grid-template-columns: 1fr 1fr; }
+    .col-mapper-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -499,27 +467,54 @@
 
 <div class="page-header">
   <h1>Supplier Wait Time Simulator</h1>
-  <p>How long do parts spend waiting at a supplier before work even begins — and what drives that delay?</p>
+  <p>How long do parts spend waiting at a supplier before work even begins — and how many more jobs could they absorb?</p>
   <div class="how-it-works">
     <div class="how-pill"><strong>Busier supplier</strong> → longer waits, nonlinearly</div>
     <div class="how-pill"><strong>More unpredictable arrivals</strong> → longer waits</div>
     <div class="how-pill"><strong>More variable job times</strong> → longer waits</div>
+    <div class="how-pill"><strong>Smaller supplier</strong> → longer waits at same utilization</div>
   </div>
 </div>
 
 <div class="app">
 
-  <!-- Left: sliders -->
   <div class="controls">
-    <div class="ctrl-heading">Adjust the scenario</div>
+    <div class="ctrl-heading">Supplier size</div>
+
+    <div class="ctrl-group">
+      <div class="ctrl-label" style="margin-bottom:2px">
+        Processing lines
+        <span class="ctrl-val" id="lines-out">1</span>
+      </div>
+      <div class="lines-labels">
+        <span class="lines-label" style="left:0%">Small</span>
+        <span class="lines-label" style="left:50%">Medium</span>
+        <span class="lines-label" style="left:100%">Large</span>
+      </div>
+      <div class="lines-ticks">
+        <span class="lines-tick" style="left:0%"></span>
+        <span class="lines-tick" style="left:25%"></span>
+        <span class="lines-tick" style="left:50%"></span>
+        <span class="lines-tick" style="left:75%"></span>
+        <span class="lines-tick" style="left:100%"></span>
+      </div>
+      <input type="range" min="1" max="5" step="1" value="1" id="lines" oninput="update(true)">
+      <div class="lines-nums">
+        <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+      </div>
+      <div class="ctrl-hint">How many jobs can this supplier work on simultaneously?</div>
+    </div>
+
+    <hr class="ctrl-divider">
+    <div class="ctrl-heading">Variability &amp; workload</div>
 
     <div class="ctrl-group">
       <div class="ctrl-label">
         How unpredictable are arrivals?
         <span class="ctrl-val" id="cva-out">moderate</span>
       </div>
-      <input type="range" min="0.1" max="2.5" step="0.1" value="1.0" id="cva" oninput="update(true)">
-      <div class="ctrl-hint">Low = orders arrive on a regular schedule. High = orders arrive in unpredictable bursts.</div>
+      <input type="range" min="0.1" max="2.5" step="0.1" value="1.2" id="cva" oninput="update(true)">
+      <div class="ctrl-hint">Low = regular schedule. High = unpredictable bursts.</div>
     </div>
 
     <div class="ctrl-group">
@@ -528,7 +523,7 @@
         <span class="ctrl-val" id="cvs-out">moderate</span>
       </div>
       <input type="range" min="0.1" max="2.5" step="0.1" value="1.0" id="cvs" oninput="update(true)">
-      <div class="ctrl-hint">Low = jobs take roughly the same time. High = some jobs take much longer than others.</div>
+      <div class="ctrl-hint">Low = consistent durations. High = some jobs take much longer.</div>
     </div>
 
     <div class="ctrl-group">
@@ -536,17 +531,17 @@
         Average time to process a job
         <span class="ctrl-val" id="pt-out">4.0 hrs</span>
       </div>
-      <input type="range" min="1" max="20" step="0.5" value="4" id="pt" oninput="update(true)">
-      <div class="ctrl-hint">How long the supplier spends actively working on each order.</div>
+      <input type="range" min="1" max="20" step="0.5" value="5" id="pt" oninput="update(true)">
     </div>
 
     <div class="ctrl-group">
       <div class="ctrl-label">
-        How busy is the supplier?
-        <span class="ctrl-val" id="u-out">75%</span>
+        Arrival rate
+        <span class="ctrl-val" id="arr-out">0.15 jobs/hr</span>
       </div>
-      <input type="range" min="5" max="99" step="1" value="75" id="util" oninput="update(true)">
-      <div class="ctrl-hint">The percentage of time the supplier is actively working. Above 85% is a danger zone.</div>
+      <input type="range" min="0.05" max="2.0" step="0.05" value="0.15" id="arr-rate" oninput="update(true)">
+      <div class="ctrl-hint">How frequently new jobs arrive at this supplier.</div>
+      <div class="derived-util" id="derived-util">→ 75% utilized · Above 85% is a danger zone</div>
     </div>
 
     <div class="ctrl-group">
@@ -562,19 +557,23 @@
     </div>
   </div>
 
-  <!-- Right: tabs + content -->
   <div class="right">
+
+    <div class="sample-bar">
+      <span class="sample-label" id="sample-label">Sample #1 — 800 synthetic jobs</span>
+      <button class="sample-btn" onclick="newSample()">⟳ New sample</button>
+    </div>
 
     <div class="metrics" id="metrics-row"></div>
 
     <div class="tab-bar">
-      <button class="tab active" onclick="setView('dashboard',   this)">Overview</button>
+      <button class="tab active" onclick="setView('dashboard', this)">Overview</button>
       <button class="tab"        onclick="setView('sensitivity', this)">What if?</button>
-      <button class="tab"        onclick="setView('histogram',   this)">Wait spread</button>
-      <button class="tab"        onclick="setView('datainput',   this)">Use my data</button>
+      <button class="tab"        onclick="setView('histogram', this)">Wait spread</button>
+      <button class="tab"        onclick="setView('datainput', this)">Use my data</button>
     </div>
 
-    <!-- Overview (dashboard) -->
+    <!-- Overview -->
     <div id="view-dashboard">
       <div class="charts-grid">
         <div class="chart-box">
@@ -596,18 +595,17 @@
           </div>
         </div>
         <div class="chart-box">
-          <div class="chart-title">Formula estimate vs. simulated result</div>
-          <div class="chart-desc">How closely the quick estimate tracks the full simulation</div>
-          <div class="chart-wrap"><canvas id="c-comp"></canvas></div>
+          <div class="chart-title">Spare job capacity vs. utilization</div>
+          <div class="chart-desc">Additional jobs per week this supplier could absorb before reaching 85%</div>
+          <div class="chart-wrap"><canvas id="c-spare"></canvas></div>
           <div class="chart-legend">
-            <span><span class="leg-dot" style="background:#185fa5"></span>Formula estimate</span>
-            <span><span class="leg-dot" style="background:#0f6e56"></span>Simulation</span>
-            <span><span class="leg-dot" style="background:#ba7517"></span>The Company only</span>
+            <span><span class="leg-dot" style="background:#0f6e56"></span>Spare jobs</span>
+            <span><span class="leg-dot" style="background:rgba(15,110,86,0.15)"></span>Current utilization</span>
           </div>
         </div>
         <div class="chart-box">
           <div class="chart-title">Jobs piling up over time</div>
-          <div class="chart-desc">How the backlog grows and clears across a simulated day</div>
+          <div class="chart-desc">How the backlog grows and clears across a simulated period</div>
           <div class="chart-wrap"><canvas id="c-queue"></canvas></div>
           <div class="chart-legend">
             <span><span class="leg-dot" style="background:#185fa5"></span>All jobs</span>
@@ -617,20 +615,27 @@
       </div>
     </div>
 
-    <!-- What if? (sensitivity) -->
+    <!-- What if? -->
     <div id="view-sensitivity" style="display:none">
-      <div class="chart-box">
-        <div class="chart-title">What if arrivals were more or less irregular?</div>
-        <div class="chart-desc">Each line shows a different level of arrival unpredictability — from very regular (light blue) to very erratic (dark red)</div>
-        <div class="chart-wrap" style="height:300px"><canvas id="c-sens"></canvas></div>
+      <div class="charts-grid">
+        <div class="chart-box">
+          <div class="chart-title">Wait time across utilization levels</div>
+          <div class="chart-desc">Each line shows a different level of arrival unpredictability</div>
+          <div class="chart-wrap" style="height:280px"><canvas id="c-sens"></canvas></div>
+        </div>
+        <div class="chart-box">
+          <div class="chart-title">What if variability could be reduced?</div>
+          <div class="chart-desc">Predicted wait time if arrivals or job times became more predictable</div>
+          <div class="chart-wrap" style="height:280px"><canvas id="c-sens-var"></canvas></div>
+        </div>
       </div>
     </div>
 
-    <!-- Wait spread (histogram) -->
+    <!-- Wait spread -->
     <div id="view-histogram" style="display:none">
       <div class="chart-box">
         <div class="chart-title">Spread of wait times across all jobs</div>
-        <div class="chart-desc">Most jobs may wait a short time, but a significant tail waits far longer — those outliers cause line stoppages</div>
+        <div class="chart-desc">Most jobs wait briefly, but the long tail causes line stoppages</div>
         <div class="chart-wrap" style="height:300px"><canvas id="c-hist"></canvas></div>
         <div class="chart-legend">
           <span><span class="leg-dot" style="background:#185fa5"></span>All jobs</span>
@@ -639,15 +644,14 @@
       </div>
     </div>
 
-    <!-- Use my data (data input) -->
+    <!-- Use my data -->
     <div id="view-datainput" style="display:none">
       <div class="data-section">
 
         <div class="data-intro">
-          Upload a CSV file from your supplier records, or paste numbers directly into the boxes below. The simulator will work out how busy they are, how unpredictable their schedule is, and how variable their job times are — then show you the predicted wait time step by step.
+          Upload a CSV or paste numbers below. Select the supplier's size category, and the simulator will derive utilization, variability, and predicted wait time step by step.
         </div>
 
-        <!-- CSV upload zone -->
         <div class="csv-zone" id="csv-zone"
              ondragover="event.preventDefault(); this.classList.add('drag-over')"
              ondragleave="this.classList.remove('drag-over')"
@@ -662,7 +666,6 @@
           Loaded: <span class="csv-filename" id="csv-filename"></span> — <span id="csv-row-count"></span> rows found.
         </div>
 
-        <!-- Column mapper (shown after file loaded) -->
         <div class="col-mapper" id="col-mapper">
           <div class="col-mapper-title">Match your columns to the right fields</div>
           <div class="col-mapper-grid">
@@ -677,7 +680,7 @@
               <div class="csv-preview" id="prev-service"></div>
             </div>
             <div class="col-map-group">
-              <label>The Company job? column (optional)</label>
+              <label>The Company job? (optional)</label>
               <select id="map-label"></select>
               <div class="csv-preview" id="prev-label"></div>
             </div>
@@ -690,97 +693,46 @@
         <div class="data-grid">
           <div class="data-box">
             <div class="data-box-title">When did each job arrive?</div>
-            <div class="data-box-desc">Paste the arrival time of each job, in hours from the start of your observation window. One number per line.</div>
+            <div class="data-box-desc">Arrival time of each job in hours from start. One per line.</div>
             <textarea id="arr-input" placeholder="0.0&#10;1.2&#10;2.5&#10;3.1&#10;5.0&#10;6.8&#10;7.3&#10;9.0&#10;10.4&#10;12.1"></textarea>
           </div>
           <div class="data-box">
-            <div class="data-box-title">How long did each job take to process?</div>
-            <div class="data-box-desc">The actual time spent working on each job, in hours. Not including wait time — just active processing. One number per line.</div>
+            <div class="data-box-title">How long did each job take?</div>
+            <div class="data-box-desc">Active processing time per job in hours (not including wait). One per line.</div>
             <textarea id="svc-input" placeholder="3.8&#10;4.2&#10;5.1&#10;3.5&#10;4.0&#10;4.8&#10;3.9&#10;4.3&#10;4.1&#10;3.7"></textarea>
           </div>
         </div>
 
         <div class="data-company-row">
           <div class="data-box">
-            <div class="data-box-title">Which jobs belong to The Company?</div>
-            <div class="data-box-desc">Enter 1 for The Company's jobs, 0 for everyone else's — one per line, in the same order as the arrivals above. Leave blank to use the share slider instead.</div>
-            <textarea id="label-input" style="height:90px" placeholder="1&#10;0&#10;1&#10;1&#10;0&#10;0&#10;1&#10;0&#10;1&#10;1"></textarea>
+            <div class="data-box-title">Processing lines &amp; Company labels</div>
+            <div class="data-box-desc">Set the number of processing lines, then optionally enter 1 (Company) or 0 (other) per job.</div>
+            <div style="margin-bottom:8px">
+              <div class="ctrl-label" style="margin-bottom:2px">
+                Lines
+                <span class="ctrl-val" id="data-lines-out">1</span>
+              </div>
+              <input type="range" min="1" max="5" step="1" value="1" id="data-lines" style="margin-bottom:4px" oninput="document.getElementById('data-lines-out').textContent=this.value">
+            </div>
+            <textarea id="label-input" style="height:80px" placeholder="1&#10;0&#10;1&#10;1&#10;0&#10;0&#10;1&#10;0&#10;1&#10;1"></textarea>
           </div>
           <div class="data-box" style="display:flex;flex-direction:column;justify-content:flex-end;">
-            <div class="data-box-desc" style="margin-bottom:8px">When you are ready, click below to analyse your data.</div>
+            <div class="data-box-desc" style="margin-bottom:8px">Click to analyse your data.</div>
             <button class="parse-btn" onclick="parseData()">Analyse my data</button>
             <div class="error-msg" id="parse-error"></div>
           </div>
         </div>
 
-        <!-- Plain-English derivation walkthrough -->
         <div class="derivation" id="derivation-box">
           <div class="deriv-title">How your data translates into wait time — step by step</div>
           <div class="deriv-steps">
-
-            <div class="deriv-step">
-              <div class="step-num">1</div>
-              <div class="step-body">
-                <div class="step-label">Work out the gaps between arrivals — how many hours passed between each job showing up</div>
-                <div class="step-working" id="d-iat-working">e.g. if jobs arrived at hour 0, 1.2, and 2.5 — the gaps are 1.2 hrs and 1.3 hrs</div>
-              </div>
-              <div class="step-result pending" id="d-iat">enter data above</div>
-            </div>
-
-            <div class="deriv-step">
-              <div class="step-num">2</div>
-              <div class="step-body">
-                <div class="step-label">Measure how irregular those gaps are — if all gaps are the same, arrivals are perfectly predictable; if they vary widely, arrivals are erratic</div>
-                <div class="step-working" id="d-cva-working">irregularity score = spread of gaps ÷ average gap</div>
-              </div>
-              <div class="step-result pending" id="d-cva">enter data above</div>
-            </div>
-
-            <div class="deriv-step">
-              <div class="step-num">3</div>
-              <div class="step-body">
-                <div class="step-label">Measure how variable the job times are — if all jobs take the same time, service is consistent; if some take much longer, it is unpredictable</div>
-                <div class="step-working" id="d-cvs-working">variability score = spread of job times ÷ average job time</div>
-              </div>
-              <div class="step-result pending" id="d-cvs">enter data above</div>
-            </div>
-
-            <div class="deriv-step">
-              <div class="step-num">4</div>
-              <div class="step-body">
-                <div class="step-label">Calculate the average time a job takes to process — this is how long the supplier is tied up per order</div>
-                <div class="step-working" id="d-pt-working">average of all job processing times</div>
-              </div>
-              <div class="step-result pending" id="d-pt">enter data above</div>
-            </div>
-
-            <div class="deriv-step">
-              <div class="step-num">5</div>
-              <div class="step-body">
-                <div class="step-label">Estimate how busy the supplier is — average job time divided by average gap between arrivals tells us what fraction of the time the supplier is occupied</div>
-                <div class="step-working" id="d-u-working">busyness = average job time ÷ average gap between arrivals</div>
-              </div>
-              <div class="step-result pending" id="d-u">enter data above</div>
-            </div>
-
-            <div class="deriv-step">
-              <div class="step-num">6</div>
-              <div class="step-body">
-                <div class="step-label">Count what share of jobs belong to The Company</div>
-                <div class="step-working" id="d-mix-working">The Company jobs ÷ total jobs</div>
-              </div>
-              <div class="step-result pending" id="d-mix">enter data above</div>
-            </div>
-
-            <div class="deriv-step">
-              <div class="step-num">7</div>
-              <div class="step-body">
-                <div class="step-label">Combine busyness, irregularity, and variability to estimate the average wait time before work even begins</div>
-                <div class="step-working" id="d-vut-working">predicted wait = (irregularity + variability) × average job time × busyness pressure</div>
-              </div>
-              <div class="step-result pending" id="d-vut">enter data above</div>
-            </div>
-
+            <div class="deriv-step"><div class="step-num">1</div><div class="step-body"><div class="step-label">Work out the gaps between arrivals</div><div class="step-working" id="d-iat-working">e.g. jobs at hour 0, 1.2, 2.5 → gaps of 1.2 and 1.3 hrs</div></div><div class="step-result pending" id="d-iat">enter data above</div></div>
+            <div class="deriv-step"><div class="step-num">2</div><div class="step-body"><div class="step-label">Measure how irregular those gaps are</div><div class="step-working" id="d-cva-working">irregularity = spread ÷ average</div></div><div class="step-result pending" id="d-cva">enter data above</div></div>
+            <div class="deriv-step"><div class="step-num">3</div><div class="step-body"><div class="step-label">Measure how variable job times are</div><div class="step-working" id="d-cvs-working">variability = spread ÷ average</div></div><div class="step-result pending" id="d-cvs">enter data above</div></div>
+            <div class="deriv-step"><div class="step-num">4</div><div class="step-body"><div class="step-label">Average job processing time</div><div class="step-working" id="d-pt-working">average of all job times</div></div><div class="step-result pending" id="d-pt">enter data above</div></div>
+            <div class="deriv-step"><div class="step-num">5</div><div class="step-body"><div class="step-label">Estimate how busy the supplier is, adjusted for size</div><div class="step-working" id="d-u-working">busyness = avg job time ÷ (avg gap × capacity)</div></div><div class="step-result pending" id="d-u">enter data above</div></div>
+            <div class="deriv-step"><div class="step-num">6</div><div class="step-body"><div class="step-label">The Company's share of the workload</div><div class="step-working" id="d-mix-working">Company jobs ÷ total jobs</div></div><div class="step-result pending" id="d-mix">enter data above</div></div>
+            <div class="deriv-step"><div class="step-num">7</div><div class="step-body"><div class="step-label">Predicted wait time and spare job capacity</div><div class="step-working" id="d-vut-working">Combines busyness, irregularity, variability, and size</div></div><div class="step-result pending" id="d-vut">enter data above</div></div>
           </div>
           <button class="apply-btn" id="apply-btn" onclick="applyDerivedParams()" disabled>
             Run the simulation with my data →
@@ -798,8 +750,63 @@
 let charts = {};
 let currentView = 'dashboard';
 let derivedParams = null;
-let cachedSim = null;      // holds simulation result when running from real data
-let usingRealData = false; // true when user has applied uploaded data
+let cachedSim = null;
+let usingRealData = false;
+
+/* ── Seeded PRNG (mulberry32) ──
+   Produces the same sequence of random numbers for a given seed.
+   Moving sliders re-runs the simulation on the same "dice rolls",
+   so you can isolate the effect of each parameter. */
+let simSeed = Math.floor(Math.random() * 2147483647);
+let sampleNumber = 1;
+
+function mulberry32(seed) {
+  return function() {
+    seed |= 0;
+    seed = seed + 0x6D2B79F5 | 0;
+    let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+
+function newSample() {
+  simSeed = Math.floor(Math.random() * 2147483647);
+  sampleNumber++;
+  cachedSim = null;
+  usingRealData = false;
+  update();
+}
+
+/* ── Supplier capacity (calibrated from NASF / NAICS 332813 industry data) ──
+   Lines 1–2 = Small:  manual hoists, batch processing, <20 employees
+   Lines 3   = Medium: semi-automated lines, 20–99 employees
+   Lines 4–5 = Large:  fully automated conveyors, 100+ employees
+   opsHrs scales with line count: more lines → multi-shift operations */
+
+const TARGET_U = 0.85;
+
+function getLines()    { return parseInt(document.getElementById('lines').value) || 1; }
+function getDataLines() { return parseInt(document.getElementById('data-lines').value) || 1; }
+function getOpsHrs(c)  { return 40 + ((c || getLines()) - 1) * 10; }
+
+function sizeLabel(c) {
+  if (c <= 2) return 'Small';
+  if (c <= 3) return 'Medium';
+  return 'Large';
+}
+
+/* ── Capacity helpers ── */
+function capRating(u) {
+  if (u < 0.70) return { label: 'Available',   cls: 'available' };
+  if (u < 0.85) return { label: 'Tightening',  cls: 'tightening' };
+  return                { label: 'Constrained', cls: 'constrained' };
+}
+
+function spareJobs(u, c, opsHrs, pt) {
+  if (u >= TARGET_U || pt <= 0) return 0;
+  return ((TARGET_U - u) * c * opsHrs) / pt;
+}
 
 /* ── Variability label ── */
 function varLabel(v) {
@@ -822,524 +829,447 @@ function setView(v, btn) {
 }
 
 /* ── Statistics ── */
-function mean(arr)   { return arr.reduce((a, b) => a + b, 0) / arr.length; }
-function stddev(arr) {
-  const m = mean(arr);
-  return Math.sqrt(arr.reduce((s, x) => s + (x - m) ** 2, 0) / arr.length);
+function mean(arr) { return arr.reduce((a, b) => a + b, 0) / arr.length; }
+function stddev(arr) { const m = mean(arr); return Math.sqrt(arr.reduce((s, x) => s + (x - m) ** 2, 0) / arr.length); }
+function parseLines(text) { return text.trim().split(/\s+|\n|,/).map(s => parseFloat(s)).filter(n => !isNaN(n)); }
+
+/* ── Multi-server wait time (Sakasegawa) ── */
+function waitTimeFn(ca, cs, pt, u, c) {
+  c = c || 1;
+  if (u >= 1) u = 0.999;
+  const exp = Math.sqrt(2 * (c + 1)) - 1;
+  return ((ca * ca + cs * cs) / 2) * (pt / c) * (Math.pow(u, exp) / (1 - u));
 }
 
-function parseLines(text) {
-  return text.trim().split(/\s+|\n|,/).map(s => parseFloat(s)).filter(n => !isNaN(n));
+/* ── Simulation (multi-server, seeded) ── */
+function exponential(m, rng) { return -m * Math.log(rng() || 1e-10); }
+function erlang(k, m, rng) { let s = 0; for (let i = 0; i < k; i++) s += exponential(m / k, rng); return s; }
+function sampleSpread(m, sp, rng) {
+  if (sp <= 0.01) return m;
+  if (sp <= 0.5) return erlang(Math.max(1, Math.round(1 / (sp * sp))), m, rng);
+  return exponential(m, rng);
+}
+
+function simulate(ca, cs, pt, u, mix, nJobs, c, seed) {
+  c = c || 1;
+  seed = seed || simSeed;
+  const rng = mulberry32(seed);
+  const avgGap = pt / (u * c);
+  let arrivals = [], t = 0;
+  for (let i = 0; i < nJobs; i++) {
+    t += sampleSpread(avgGap, ca, rng);
+    arrivals.push({ arrTime: t, isCo: rng() < mix / 100 });
+  }
+  let free = new Array(c).fill(0);
+  let waits = [], coWaits = [], qot = [];
+  for (let i = 0; i < arrivals.length; i++) {
+    const j = arrivals[i];
+    let mf = free[0], mi = 0;
+    for (let s = 1; s < c; s++) { if (free[s] < mf) { mf = free[s]; mi = s; } }
+    const start = Math.max(j.arrTime, mf);
+    const w = start - j.arrTime;
+    free[mi] = start + sampleSpread(pt, cs, rng);
+    waits.push(w);
+    if (j.isCo) coWaits.push(w);
+    if (i % Math.max(1, Math.floor(nJobs / 50)) === 0) {
+      const gm = Math.min(...free);
+      qot.push({ t: j.arrTime, q: arrivals.slice(i).filter(x => x.arrTime < gm).length, cq: arrivals.slice(i).filter(x => x.arrTime < gm && x.isCo).length });
+    }
+  }
+  const avg = a => a.length ? a.reduce((x, y) => x + y, 0) / a.length : 0;
+  return { avgWait: avg(waits), companyAvgWait: avg(coWaits), waitTimes: waits, companyWaits: coWaits, queueOverTime: qot };
+}
+
+function simulateFromRealData(arrTimes, svcTimes, jobLabels, companyPct, c) {
+  c = c || 1;
+  const rng = mulberry32(simSeed);
+  let free = new Array(c).fill(0);
+  let waits = [], coWaits = [], qot = [];
+  const n = arrTimes.length;
+  for (let i = 0; i < n; i++) {
+    const a = arrTimes[i], sv = svcTimes[i % svcTimes.length];
+    const isCo = jobLabels.length > 0 ? !!jobLabels[i] : rng() < companyPct / 100;
+    let mf = free[0], mi = 0;
+    for (let s = 1; s < c; s++) { if (free[s] < mf) { mf = free[s]; mi = s; } }
+    const start = Math.max(a, mf), w = start - a;
+    free[mi] = start + sv;
+    waits.push(w);
+    if (isCo) coWaits.push(w);
+    if (i % Math.max(1, Math.floor(n / 50)) === 0) {
+      const gm = Math.min(...free);
+      qot.push({ t: a, q: arrTimes.slice(i).filter(t => t < gm).length, cq: 0 });
+    }
+  }
+  const avg = a => a.length ? a.reduce((x, y) => x + y, 0) / a.length : 0;
+  return { avgWait: avg(waits), companyAvgWait: avg(coWaits), waitTimes: waits, companyWaits: coWaits, queueOverTime: qot };
 }
 
 /* ── Data Input ── */
 function parseData() {
   const errEl = document.getElementById('parse-error');
   errEl.style.display = 'none';
-
   const arrTimes = parseLines(document.getElementById('arr-input').value);
   const svcTimes = parseLines(document.getElementById('svc-input').value);
   const labelRaw = document.getElementById('label-input').value.trim();
+  const c = getDataLines();
 
   if (arrTimes.length < 2) { showErr('Please enter at least 2 arrival times.'); return; }
   if (svcTimes.length < 1) { showErr('Please enter at least 1 processing time.'); return; }
+  const cleanSvc = svcTimes.filter(v => v > 0);
+  if (!cleanSvc.length) { showErr('No valid processing times found.'); return; }
 
-  // Filter out any zero or negative processing times silently
-  const cleanSvcTimes = svcTimes.filter(v => v > 0);
-  if (cleanSvcTimes.length < 1) { showErr('No valid processing times found — make sure the values are positive numbers in hours.'); return; }
-
-  // Auto-sort arrivals earliest to latest — no need for the user to pre-sort
   arrTimes.sort((a, b) => a - b);
-
   const gaps = [];
-  for (let i = 1; i < arrTimes.length; i++) {
-    const d = arrTimes[i] - arrTimes[i - 1];
-    if (d > 0) gaps.push(d);
-    // Skip duplicate timestamps silently rather than erroring
-  }
+  for (let i = 1; i < arrTimes.length; i++) { const d = arrTimes[i] - arrTimes[i - 1]; if (d > 0) gaps.push(d); }
+  if (!gaps.length) { showErr('Could not find valid gaps.'); return; }
 
-  if (gaps.length < 1) { showErr('Could not find any valid gaps between arrival times. Please check your data.'); return; }
-
-  const avgGap    = mean(gaps);
-  const spreadGap = stddev(gaps);
-  const cva       = avgGap === 0 ? 0 : spreadGap / avgGap;
-
-  const avgJob    = mean(cleanSvcTimes);
-  const spreadJob = stddev(cleanSvcTimes);
-  const cvs       = avgJob === 0 ? 0 : spreadJob / avgJob;
-
-  const u  = Math.min(0.99, avgJob / avgGap);
-  const pt = avgJob;
+  const avgGap = mean(gaps), sGap = stddev(gaps), cva = avgGap ? sGap / avgGap : 0;
+  const avgJob = mean(cleanSvc), sJob = stddev(cleanSvc), cvs = avgJob ? sJob / avgJob : 0;
+  const u = Math.min(0.99, avgJob / (avgGap * c)), pt = avgJob;
 
   let companyPct;
-  if (labelRaw === '') {
-    companyPct = parseInt(document.getElementById('mix').value);
-  } else {
-    const labels = parseLines(labelRaw);
-    companyPct   = Math.round((labels.filter(l => l === 1).length / labels.length) * 100);
-  }
+  if (!labelRaw) { companyPct = parseInt(document.getElementById('mix').value); }
+  else { const lb = parseLines(labelRaw); companyPct = Math.round(lb.filter(l => l === 1).length / lb.length * 100); }
 
-  const predictedWait = waitTimeFn(cva, cvs, pt, u);
+  const pw = waitTimeFn(cva, cvs, pt, u, c);
+  const sj = spareJobs(u, c, getOpsHrs(c), pt);
+  const rt = capRating(u);
 
-  // Parse job labels for use in the real-data simulation
   let jobLabels = [];
-  if (labelRaw !== '') {
-    jobLabels = parseLines(labelRaw).map(l => l === 1);
-  }
+  if (labelRaw) jobLabels = parseLines(labelRaw).map(l => l === 1);
 
-  // Store real arrival times, service times, labels, and derived params
-  derivedParams = { cva, cvs, pt, u, companyPct, realArrTimes: arrTimes, realSvcTimes: cleanSvcTimes, jobLabels };
+  derivedParams = { cva, cvs, pt, u, companyPct, realArrTimes: arrTimes, realSvcTimes: cleanSvc, jobLabels, lines: c };
 
-  const fmt2 = n => n.toFixed(2);
-  const fmt1 = n => n.toFixed(1);
-
-  document.getElementById('d-iat-working').textContent =
-    `Found ${gaps.length} gaps. Average gap between arrivals: ${fmt2(avgGap)} hrs`;
-  setResult('d-iat', `avg gap: ${fmt2(avgGap)} hrs`);
-
-  document.getElementById('d-cva-working').textContent =
-    `Spread (${fmt2(spreadGap)} hrs) ÷ average gap (${fmt2(avgGap)} hrs) = ${fmt2(cva)} → ${varLabel(cva)}`;
-  setResult('d-cva', `${varLabel(cva)} (${fmt2(cva)})`);
-
-  document.getElementById('d-cvs-working').textContent =
-    `Spread (${fmt2(spreadJob)} hrs) ÷ average job time (${fmt2(avgJob)} hrs) = ${fmt2(cvs)} → ${varLabel(cvs)}`;
-  setResult('d-cvs', `${varLabel(cvs)} (${fmt2(cvs)})`);
-
-  document.getElementById('d-pt-working').textContent =
-    `Average of ${cleanSvcTimes.length} job times`;
-  setResult('d-pt', `${fmt2(avgJob)} hrs per job`);
-
-  document.getElementById('d-u-working').textContent =
-    `${fmt2(avgJob)} hrs per job ÷ ${fmt2(avgGap)} hrs between arrivals = ${(u * 100).toFixed(1)}% occupied`;
-  setResult('d-u', `${(u * 100).toFixed(1)}% busy`);
-
-  document.getElementById('d-mix-working').textContent =
-    labelRaw === '' ? 'Using the share slider — no labels provided' :
-    `${parseLines(labelRaw).filter(l => l === 1).length} The Company jobs out of ${parseLines(labelRaw).length} total`;
+  const f2 = n => n.toFixed(2);
+  document.getElementById('d-iat-working').textContent = `${gaps.length} gaps · avg: ${f2(avgGap)} hrs`;
+  setResult('d-iat', `avg gap: ${f2(avgGap)} hrs`);
+  document.getElementById('d-cva-working').textContent = `Spread (${f2(sGap)}) ÷ avg (${f2(avgGap)}) = ${f2(cva)}`;
+  setResult('d-cva', `${varLabel(cva)} (${f2(cva)})`);
+  document.getElementById('d-cvs-working').textContent = `Spread (${f2(sJob)}) ÷ avg (${f2(avgJob)}) = ${f2(cvs)}`;
+  setResult('d-cvs', `${varLabel(cvs)} (${f2(cvs)})`);
+  document.getElementById('d-pt-working').textContent = `Average of ${cleanSvc.length} jobs`;
+  setResult('d-pt', `${f2(avgJob)} hrs per job`);
+  document.getElementById('d-u-working').textContent = c > 1 ? `${f2(avgJob)} ÷ (${f2(avgGap)} × ${c} lines) = ${(u * 100).toFixed(1)}%` : `${f2(avgJob)} ÷ ${f2(avgGap)} = ${(u * 100).toFixed(1)}%`;
+  setResult('d-u', `${(u * 100).toFixed(1)}% utilized (${sizeLabel(c)})`);
+  document.getElementById('d-mix-working').textContent = !labelRaw ? 'Using the share slider' : `${parseLines(labelRaw).filter(l => l === 1).length} of ${parseLines(labelRaw).length}`;
   setResult('d-mix', `${companyPct}% The Company`);
-
-  document.getElementById('d-vut-working').textContent =
-    `Busyness: ${(u*100).toFixed(0)}%  ·  Arrival irregularity: ${fmt2(cva)}  ·  Job variability: ${fmt2(cvs)}  ·  Avg job time: ${fmt2(pt)} hrs`;
-  setResult('d-vut', `${fmt2(predictedWait)} hrs predicted wait`);
-
+  const spText = sj > 0 ? `${f2(pw)} hrs wait · ${rt.label} · ≈${Math.round(sj)} spare jobs` : `${f2(pw)} hrs wait · ${rt.label} · no spare capacity`;
+  document.getElementById('d-vut-working').textContent = `${sizeLabel(c)} supplier · ${c} line${c > 1 ? 's' : ''} · ${(u * 100).toFixed(0)}% utilized`;
+  setResult('d-vut', spText);
   document.getElementById('apply-btn').disabled = false;
 
   function showErr(msg) { errEl.textContent = msg; errEl.style.display = 'block'; }
 }
 
-function setResult(id, text) {
-  const el = document.getElementById(id);
-  el.textContent = text;
-  el.classList.remove('pending');
-}
+function setResult(id, text) { const el = document.getElementById(id); el.textContent = text; el.classList.remove('pending'); }
 
-/* ── Apply to sliders ── */
 function applyDerivedParams() {
   if (!derivedParams) return;
-  const { cva, cvs, pt, u, companyPct, realArrTimes, realSvcTimes, jobLabels } = derivedParams;
-  const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
-  document.getElementById('cva').value  = clamp(cva,  0.1, 2.5).toFixed(1);
-  document.getElementById('cvs').value  = clamp(cvs,  0.1, 2.5).toFixed(1);
-  document.getElementById('pt').value   = clamp(pt,   1,   20).toFixed(1);
-  document.getElementById('util').value = Math.round(clamp(u * 100, 5, 99));
-  document.getElementById('mix').value  = Math.round(clamp(companyPct, 5, 95) / 5) * 5;
-
-  // Run the simulation once on real data and cache it — don't re-randomise on tab switch
-  cachedSim = simulateFromRealData(realArrTimes, realSvcTimes, jobLabels, companyPct);
+  const { cva, cvs, pt, u, companyPct, realArrTimes, realSvcTimes, jobLabels, lines } = derivedParams;
+  const cl = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+  document.getElementById('cva').value = cl(cva, 0.1, 2.5).toFixed(1);
+  document.getElementById('cvs').value = cl(cvs, 0.1, 2.5).toFixed(1);
+  document.getElementById('pt').value = cl(pt, 1, 20).toFixed(1);
+  const derivedArrRate = (u * lines) / pt;
+  document.getElementById('arr-rate').value = cl(derivedArrRate, 0.05, 2.0).toFixed(2);
+  document.getElementById('mix').value = Math.round(cl(companyPct, 5, 95) / 5) * 5;
+  document.getElementById('lines').value = cl(lines, 1, 5);
+  cachedSim = simulateFromRealData(realArrTimes, realSvcTimes, jobLabels, companyPct, lines);
   usingRealData = true;
-
   setView('dashboard', document.querySelectorAll('.tab')[0]);
-}
-
-/* ── Simulate directly from real uploaded records ── */
-function simulateFromRealData(arrTimes, svcTimes, jobLabels, companyPct) {
-  // Pair each arrival with a service time (cycle through svc times if fewer than arrivals)
-  let workerFreeAt = 0, waitTimes = [], companyWaits = [], queueOverTime = [];
-  const n = arrTimes.length;
-
-  for (let i = 0; i < n; i++) {
-    const arrTime = arrTimes[i];
-    const svcTime = svcTimes[i % svcTimes.length];
-    const isCompany = jobLabels.length > 0
-      ? (jobLabels[i] === true || jobLabels[i] === 1)
-      : Math.random() < companyPct / 100;
-
-    const start = Math.max(arrTime, workerFreeAt);
-    const wait  = start - arrTime;
-    workerFreeAt = start + svcTime;
-
-    waitTimes.push(wait);
-    if (isCompany) companyWaits.push(wait);
-
-    if (i % Math.max(1, Math.floor(n / 50)) === 0) {
-      const backlog = arrTimes.slice(i).filter(t => t < workerFreeAt).length;
-      queueOverTime.push({
-        t: arrTime,
-        q: backlog,
-        cq: arrTimes.slice(i).filter((t, j) => {
-          const lbl = jobLabels.length > 0 ? jobLabels[i + j] : Math.random() < companyPct / 100;
-          return t < workerFreeAt && lbl;
-        }).length
-      });
-    }
-  }
-
-  const avg = arr => arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0;
-  return { avgWait: avg(waitTimes), companyAvgWait: avg(companyWaits), waitTimes, companyWaits, queueOverTime };
-}
-
-/* ── Wait time formula (wait time formula) ── */
-function waitTimeFn(arrIrregularity, jobVariability, avgJobTime, busyness) {
-  return ((arrIrregularity * arrIrregularity + jobVariability * jobVariability) / 2)
-    * avgJobTime
-    * (busyness / (1 - busyness));
-}
-
-/* ── Simulation ── */
-function exponential(m) { return -m * Math.log(Math.random() || 1e-10); }
-
-function erlang(k, m) {
-  let s = 0;
-  for (let i = 0; i < k; i++) s += exponential(m / k);
-  return s;
-}
-
-function sampleSpread(m, spread) {
-  if (spread <= 0.01) return m;
-  if (spread <= 0.5)  return erlang(Math.max(1, Math.round(1 / (spread * spread))), m);
-  return exponential(m);
-}
-
-function simulate(arrIrregularity, jobVariability, avgJobTime, busyness, companyPct, nJobs) {
-  const avgGap = avgJobTime / busyness;
-  let arrivals = [], t = 0;
-  for (let i = 0; i < nJobs; i++) {
-    t += sampleSpread(avgGap, arrIrregularity);
-    arrivals.push({ arrTime: t, isCompany: Math.random() < companyPct / 100 });
-  }
-  let workerFreeAt = 0, waitTimes = [], companyWaits = [], queueOverTime = [];
-  for (let i = 0; i < arrivals.length; i++) {
-    const j     = arrivals[i];
-    const start = Math.max(j.arrTime, workerFreeAt);
-    const jobTime = sampleSpread(avgJobTime, jobVariability);
-    const wait  = start - j.arrTime;
-    workerFreeAt = start + jobTime;
-    waitTimes.push(wait);
-    if (j.isCompany) companyWaits.push(wait);
-    if (i % Math.max(1, Math.floor(nJobs / 50)) === 0) {
-      const backlog = arrivals.slice(i).filter(x => x.arrTime < workerFreeAt).length;
-      queueOverTime.push({
-        t: j.arrTime,
-        q: backlog,
-        cq: arrivals.slice(i).filter(x => x.arrTime < workerFreeAt && x.isCompany).length
-      });
-    }
-  }
-  const avg = arr => arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0;
-  return { avgWait: avg(waitTimes), companyAvgWait: avg(companyWaits), waitTimes, companyWaits, queueOverTime };
 }
 
 /* ── Charts ── */
 function makeOrUpdate(id, config) {
   const ctx = document.getElementById(id);
   if (!ctx) return;
-  if (charts[id]) { charts[id].destroy(); }
+  if (charts[id]) charts[id].destroy();
   charts[id] = new Chart(ctx, config);
 }
 
-const gridColor = 'rgba(128,128,128,0.10)';
-const axisColor = '#9e9d97';
-const tickFont  = { size: 11, family: 'Georgia, serif' };
-const baseOpts  = {
+const gCol = 'rgba(128,128,128,0.10)';
+const aCo = '#9e9d97';
+const tF = { size: 11, family: 'Georgia, serif' };
+const bO = {
   responsive: true, maintainAspectRatio: false,
-  plugins: {
-    legend: { display: false },
-    tooltip: { mode: 'index', intersect: false, bodyFont: { family: 'Georgia, serif', size: 12 } }
-  },
-  scales: {
-    x: { grid: { color: gridColor }, ticks: { color: axisColor, font: tickFont } },
-    y: { grid: { color: gridColor }, ticks: { color: axisColor, font: tickFont } }
-  }
+  plugins: { legend: { display: false }, tooltip: { mode: 'index', intersect: false, bodyFont: { family: 'Georgia, serif', size: 12 } } },
+  scales: { x: { grid: { color: gCol }, ticks: { color: aCo, font: tF } }, y: { grid: { color: gCol }, ticks: { color: aCo, font: tF } } }
 };
+const legendOpts = { display: true, position: 'top', labels: { color: aCo, font: tF, boxWidth: 12, usePointStyle: true, padding: 14 } };
 
 /* ── Main update ── */
-function update(manualSliderChange) {
-  // If the user moves a slider manually, drop back to random simulation mode
-  if (manualSliderChange) {
-    usingRealData = false;
-    cachedSim = null;
-  }
+function update(manual) {
+  if (manual) { usingRealData = false; cachedSim = null; }
 
-  const arrIrr  = parseFloat(document.getElementById('cva').value);
-  const jobVar  = parseFloat(document.getElementById('cvs').value);
-  const avgJob  = parseFloat(document.getElementById('pt').value);
-  const busy    = parseFloat(document.getElementById('util').value) / 100;
-  const mix     = parseInt(document.getElementById('mix').value);
+  const ca = parseFloat(document.getElementById('cva').value);
+  const cs = parseFloat(document.getElementById('cvs').value);
+  const pt = parseFloat(document.getElementById('pt').value);
+  const arrRate = parseFloat(document.getElementById('arr-rate').value);
+  const mix = parseInt(document.getElementById('mix').value);
+  const c = getLines(), opsHrs = getOpsHrs(c);
 
-  document.getElementById('cva-out').textContent     = varLabel(arrIrr);
-  document.getElementById('cvs-out').textContent     = varLabel(jobVar);
-  document.getElementById('pt-out').textContent      = avgJob.toFixed(1) + ' hrs';
-  document.getElementById('u-out').textContent       = Math.round(busy * 100) + '%';
-  document.getElementById('mix-out').textContent     = mix + '%';
+  // Derive utilization from arrival rate, processing time, and lines
+  const u = Math.min(0.99, (arrRate * pt) / c);
+
+  document.getElementById('cva-out').textContent = varLabel(ca);
+  document.getElementById('cvs-out').textContent = varLabel(cs);
+  document.getElementById('pt-out').textContent = pt.toFixed(1) + ' hrs';
+  document.getElementById('arr-out').textContent = arrRate.toFixed(2) + ' jobs/hr';
+  document.getElementById('mix-out').textContent = mix + '%';
   document.getElementById('company-lbl').textContent = mix + '% The Company';
-  document.getElementById('other-lbl').textContent   = (100 - mix) + '% other';
+  document.getElementById('other-lbl').textContent = (100 - mix) + '% other';
+  document.getElementById('lines-out').textContent = c;
 
-  const formulaWait = waitTimeFn(arrIrr, jobVar, avgJob, busy);
+  // Update derived utilization display
+  const uPct = Math.round(u * 100);
+  const utilEl = document.getElementById('derived-util');
+  const uClass = u >= 0.85 ? 'coral' : u >= 0.70 ? 'amber' : 'green';
+  const uWarn = u >= 0.85 ? ' · Danger zone' : u >= 0.70 ? ' · Approaching capacity' : '';
+  utilEl.textContent = `→ ${uPct}% utilized${uWarn}`;
+  utilEl.className = 'derived-util ' + uClass;
 
-  // Use cached real-data simulation if available, otherwise generate random jobs
-  const sim = (usingRealData && cachedSim) ? cachedSim : simulate(arrIrr, jobVar, avgJob, busy, mix, 800);
+  const fw = waitTimeFn(ca, cs, pt, u, c);
+  const sj = spareJobs(u, c, opsHrs, pt);
+  const rt = capRating(u);
 
-  // Cache the random sim result too so tab switching doesn't re-randomise
+  const sim = (usingRealData && cachedSim) ? cachedSim : simulate(ca, cs, pt, u, mix, 800, c);
   if (!usingRealData) cachedSim = sim;
 
-  const dataSource = (usingRealData && cachedSim) ? 'from your data' : 'all job types';
-  const companySource = (usingRealData && cachedSim) ? 'from your data' : mix + '% of all arrivals';
+  const spareSub = sj > 0 ? `≈${Math.round(sj)} additional jobs before 85%` : 'at or above 85% — no headroom';
+
+  // Update sample label
+  document.getElementById('sample-label').textContent =
+    usingRealData ? 'Using your uploaded data' : `Sample #${sampleNumber} — 800 synthetic jobs`;
 
   document.getElementById('metrics-row').innerHTML = `
     <div class="metric">
       <div class="metric-label">Formula estimate</div>
-      <div class="metric-val">${formulaWait.toFixed(1)}h</div>
-      <div class="metric-sub">predicted wait time</div>
+      <div class="metric-val">${fw.toFixed(1)}h</div>
+      <div class="metric-sub">predicted wait · ${sizeLabel(c)}</div>
     </div>
     <div class="metric">
       <div class="metric-label">Simulated wait</div>
       <div class="metric-val">${sim.avgWait.toFixed(1)}h</div>
-      <div class="metric-sub">${dataSource}</div>
+      <div class="metric-sub">${usingRealData ? 'from your data' : 'all job types'}</div>
     </div>
     <div class="metric">
       <div class="metric-label">The Company wait</div>
       <div class="metric-val">${sim.companyAvgWait.toFixed(1)}h</div>
-      <div class="metric-sub">${companySource}</div>
+      <div class="metric-sub">${mix}% of arrivals</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Spare capacity</div>
+      <div class="metric-val"><span class="cap-badge ${rt.cls}">${rt.label}</span></div>
+      <div class="metric-sub">${spareSub}</div>
     </div>
   `;
 
-  const pctErr = formulaWait > 0 ? Math.abs(formulaWait - sim.avgWait) / formulaWait * 100 : 0;
-  const busyMsg = busy >= 0.9
-    ? 'Warning: this supplier is critically overloaded. Even a small increase in orders will cause wait times to spiral.'
-    : busy >= 0.75
-    ? 'Caution: above 75% busy, wait times grow rapidly. A modest reduction in workload would have a large impact.'
-    : 'This supplier has breathing room. Unpredictability is the bigger driver of delays at this workload level.';
-  document.getElementById('insight-box').textContent =
-    `${busyMsg} The formula estimate is ${pctErr.toFixed(0)}% away from the simulated result. ` +
-    `The Company waits ${sim.companyAvgWait > sim.avgWait ? 'slightly longer than' : 'about the same as'} other jobs — no priority given in a shared queue.`;
+  // Insight
+  const bMsg = u >= 0.9 ? 'This supplier is critically overloaded — even a small increase in orders will spiral.'
+    : u >= 0.75 ? 'Above 75% utilization, wait times grow rapidly.'
+    : 'This supplier has breathing room — unpredictability matters more than busyness here.';
+  const sMsg = c === 1 ? `Modeled as a single-line shop.`
+    : `${sizeLabel(c)} supplier with ${c} lines — jobs absorb into whichever line frees up first.`;
+  const spMsg = sj > 0 ? `Could absorb roughly ${Math.round(sj)} more jobs per week before reaching 85%.`
+    : 'No spare job capacity at current utilization.';
+  document.getElementById('insight-box').textContent = `${bMsg} ${sMsg} ${spMsg}`;
 
+  // ── Charts ──
   if (currentView === 'dashboard') {
-    const busyLevels = [10,20,30,40,50,60,70,80,85,90,92,95,97,99];
-    const fCurve = busyLevels.map(b => +waitTimeFn(arrIrr, jobVar, avgJob, b/100).toFixed(2));
-    const sCurve = busyLevels.map(b => +simulate(arrIrr, jobVar, avgJob, b/100, mix, 400).avgWait.toFixed(2));
+    const bL = [10, 20, 30, 40, 50, 60, 70, 80, 85, 90, 92, 95, 97, 99];
 
+    // 1: Wait vs utilization
     makeOrUpdate('c-util', {
       type: 'line',
       data: {
-        labels: busyLevels.map(l => l + '%'),
+        labels: bL.map(l => l + '%'),
         datasets: [
-          { label: 'Formula estimate', data: fCurve, borderColor: '#185fa5', backgroundColor: 'transparent', pointRadius: 2, tension: 0.35, borderWidth: 2 },
-          { label: 'Simulated result', data: sCurve, borderColor: '#0f6e56', backgroundColor: 'transparent', pointRadius: 2, tension: 0.35, borderWidth: 2, borderDash: [5,3] }
+          { label: 'Formula', data: bL.map(b => +waitTimeFn(ca, cs, pt, b / 100, c).toFixed(2)), borderColor: '#185fa5', backgroundColor: 'transparent', pointRadius: 2, tension: 0.35, borderWidth: 2 },
+          { label: 'Simulated', data: bL.map(b => +simulate(ca, cs, pt, b / 100, mix, 400, c, simSeed + b).avgWait.toFixed(2)), borderColor: '#0f6e56', backgroundColor: 'transparent', pointRadius: 2, tension: 0.35, borderWidth: 2, borderDash: [5, 3] }
         ]
       },
-      options: { ...baseOpts }
+      options: { ...bO }
     });
 
-    const irrRange = [0.1,0.3,0.5,0.7,1.0,1.2,1.5,1.8,2.0,2.5];
+    // 2: Wait vs unpredictability
+    const vR = [0.1, 0.3, 0.5, 0.7, 1.0, 1.2, 1.5, 1.8, 2.0, 2.5];
     makeOrUpdate('c-var', {
       type: 'line',
       data: {
-        labels: irrRange.map(v => varLabel(v)),
+        labels: vR.map(v => varLabel(v)),
         datasets: [
-          { label: 'Arrival irregularity', data: irrRange.map(v => +waitTimeFn(v, jobVar, avgJob, busy).toFixed(2)), borderColor: '#185fa5', backgroundColor: 'transparent', pointRadius: 2, tension: 0.35, borderWidth: 2 },
-          { label: 'Job time variability', data: irrRange.map(v => +waitTimeFn(arrIrr, v, avgJob, busy).toFixed(2)), borderColor: '#993c1d', backgroundColor: 'transparent', pointRadius: 2, tension: 0.35, borderWidth: 2, borderDash: [5,3] }
+          { label: 'Arrival irregularity', data: vR.map(v => +waitTimeFn(v, cs, pt, u, c).toFixed(2)), borderColor: '#185fa5', backgroundColor: 'transparent', pointRadius: 2, tension: 0.35, borderWidth: 2 },
+          { label: 'Job time variability', data: vR.map(v => +waitTimeFn(ca, v, pt, u, c).toFixed(2)), borderColor: '#993c1d', backgroundColor: 'transparent', pointRadius: 2, tension: 0.35, borderWidth: 2, borderDash: [5, 3] }
         ]
       },
+      options: { ...bO, scales: { x: { ...bO.scales.x, ticks: { ...bO.scales.x.ticks, maxRotation: 35 } }, y: bO.scales.y } }
+    });
+
+    // 3: Spare jobs vs utilization
+    const spareData = bL.map(b => {
+      const spr = spareJobs(b / 100, c, opsHrs, pt);
+      return +spr.toFixed(1);
+    });
+    const currentIdx = bL.indexOf(Math.round(u * 100));
+    const bgColors = bL.map((b, i) => {
+      if (b / 100 >= TARGET_U) return 'rgba(153,60,29,0.35)';
+      if (b / 100 >= 0.70) return 'rgba(186,117,23,0.35)';
+      return 'rgba(15,110,86,0.35)';
+    });
+    const borderColors = bL.map(b => {
+      if (b / 100 >= TARGET_U) return '#993c1d';
+      if (b / 100 >= 0.70) return '#ba7517';
+      return '#0f6e56';
+    });
+
+    makeOrUpdate('c-spare', {
+      type: 'bar',
+      data: {
+        labels: bL.map(l => l + '%'),
+        datasets: [{
+          label: 'Spare jobs',
+          data: spareData,
+          backgroundColor: bgColors,
+          borderColor: borderColors,
+          borderWidth: 1
+        }]
+      },
       options: {
-        ...baseOpts,
+        ...bO,
+        plugins: {
+          ...bO.plugins,
+          annotation: undefined
+        },
         scales: {
-          x: { ...baseOpts.scales.x, ticks: { ...baseOpts.scales.x.ticks, maxRotation: 30 } },
-          y: baseOpts.scales.y
+          x: { ...bO.scales.x, title: { display: true, text: 'Utilization', color: aCo, font: tF } },
+          y: { ...bO.scales.y, title: { display: true, text: 'Spare jobs', color: aCo, font: tF } }
         }
       }
     });
 
-    const compBusy   = [40,50,60,70,75,80,85,90,95];
-    const fComp      = compBusy.map(b => +waitTimeFn(arrIrr, jobVar, avgJob, b/100).toFixed(2));
-    const sComp      = compBusy.map(b => +simulate(arrIrr, jobVar, avgJob, b/100, mix, 400).avgWait.toFixed(2));
-    const coComp     = compBusy.map(b => +simulate(arrIrr, jobVar, avgJob, b/100, mix, 400).companyAvgWait.toFixed(2));
-
-    makeOrUpdate('c-comp', {
-      type: 'line',
-      data: {
-        labels: compBusy.map(l => l + '%'),
-        datasets: [
-          { label: 'Formula estimate', data: fComp,  borderColor: '#185fa5', backgroundColor: 'transparent', pointRadius: 2, tension: 0.35, borderWidth: 2 },
-          { label: 'Simulation',       data: sComp,  borderColor: '#0f6e56', backgroundColor: 'transparent', pointRadius: 2, tension: 0.35, borderWidth: 2, borderDash: [5,3] },
-          { label: 'The Company',      data: coComp, borderColor: '#ba7517', backgroundColor: 'transparent', pointRadius: 2, tension: 0.35, borderWidth: 2, borderDash: [2,2] }
-        ]
-      },
-      options: { ...baseOpts }
-    });
-
+    // 4: Queue depth
     const qt = sim.queueOverTime;
     makeOrUpdate('c-queue', {
       type: 'line',
       data: {
         labels: qt.map((d, i) => i % 5 === 0 ? Math.round(d.t) + 'h' : ''),
         datasets: [
-          { label: 'All jobs',    data: qt.map(d => d.q),  borderColor: '#185fa5', backgroundColor: 'rgba(24,95,165,0.07)', fill: true, pointRadius: 0, tension: 0.3, borderWidth: 1.5 },
-          { label: 'The Company', data: qt.map(d => d.cq), borderColor: '#ba7517', backgroundColor: 'transparent',           pointRadius: 0, tension: 0.3, borderWidth: 1.5, borderDash: [4,3] }
+          { label: 'All', data: qt.map(d => d.q), borderColor: '#185fa5', backgroundColor: 'rgba(24,95,165,0.07)', fill: true, pointRadius: 0, tension: 0.3, borderWidth: 1.5 },
+          { label: 'Company', data: qt.map(d => d.cq), borderColor: '#ba7517', backgroundColor: 'transparent', pointRadius: 0, tension: 0.3, borderWidth: 1.5, borderDash: [4, 3] }
         ]
       },
-      options: { ...baseOpts }
+      options: { ...bO }
     });
 
   } else if (currentView === 'sensitivity') {
-    const busyLevels = [10,20,30,40,50,60,70,75,80,85,90,92,95];
-    const irrLevels  = [0.5, 1.0, 1.5, 2.0, 2.5];
-    const irrColors  = ['#b5d4f4','#378add','#185fa5','#d85a30','#993c1d'];
+    const bL = [10, 20, 30, 40, 50, 60, 70, 75, 80, 85, 90, 92, 95];
+
+    // Variability × utilization
+    const iLevels = [0.5, 1.0, 1.5, 2.0, 2.5];
+    const iColors = ['#b5d4f4', '#378add', '#185fa5', '#d85a30', '#993c1d'];
     makeOrUpdate('c-sens', {
       type: 'line',
       data: {
-        labels: busyLevels.map(l => l + '%'),
-        datasets: irrLevels.map((v, i) => ({
-          label: varLabel(v),
-          data: busyLevels.map(b => +waitTimeFn(v, jobVar, avgJob, b/100).toFixed(2)),
-          borderColor: irrColors[i], backgroundColor: 'transparent',
-          pointRadius: 2, tension: 0.35, borderWidth: 2
+        labels: bL.map(l => l + '%'),
+        datasets: iLevels.map((v, i) => ({
+          label: varLabel(v), data: bL.map(b => +waitTimeFn(v, cs, pt, b / 100, c).toFixed(2)),
+          borderColor: iColors[i], backgroundColor: 'transparent', pointRadius: 2, tension: 0.35, borderWidth: 2
         }))
       },
-      options: {
-        ...baseOpts,
-        plugins: {
-          legend: { display: true, position: 'top', labels: { color: axisColor, font: tickFont, boxWidth: 12, usePointStyle: true, padding: 14 } },
-          tooltip: { mode: 'index', intersect: false }
-        }
-      }
+      options: { ...bO, plugins: { legend: legendOpts, tooltip: bO.plugins.tooltip } }
+    });
+
+    // What if variability reduced?
+    // Show current wait, then what happens if Ca or Cs are halved or set to 0.3
+    const scenarios = [
+      { label: 'Current settings', ca: ca, cs: cs, color: '#185fa5', dash: [] },
+      { label: 'Arrivals smoothed (Ca halved)', ca: ca / 2, cs: cs, color: '#0f6e56', dash: [5, 3] },
+      { label: 'Job times standardized (Cs halved)', ca: ca, cs: cs / 2, color: '#ba7517', dash: [5, 3] },
+      { label: 'Both halved', ca: ca / 2, cs: cs / 2, color: '#993c1d', dash: [3, 2] }
+    ];
+
+    makeOrUpdate('c-sens-var', {
+      type: 'line',
+      data: {
+        labels: bL.map(l => l + '%'),
+        datasets: scenarios.map(s => ({
+          label: s.label,
+          data: bL.map(b => +waitTimeFn(s.ca, s.cs, pt, b / 100, c).toFixed(2)),
+          borderColor: s.color, backgroundColor: 'transparent',
+          pointRadius: 2, tension: 0.35, borderWidth: 2, borderDash: s.dash
+        }))
+      },
+      options: { ...bO, plugins: { legend: { ...legendOpts, labels: { ...legendOpts.labels, boxWidth: 20 } }, tooltip: bO.plugins.tooltip } }
     });
 
   } else if (currentView === 'histogram') {
-    const allW  = sim.waitTimes;
-    const cW    = sim.companyWaits;
-    const maxW  = Math.max(...allW, 1) * 1.02;
-    const bins  = 20, binSize = maxW / bins;
-    const allCt = Array(bins).fill(0);
-    const cCt   = Array(bins).fill(0);
-    allW.forEach(w => { const b = Math.min(Math.floor(w / binSize), bins - 1); allCt[b]++; });
-    cW.forEach(w =>   { const b = Math.min(Math.floor(w / binSize), bins - 1); cCt[b]++; });
+    const aW = sim.waitTimes, cW = sim.companyWaits;
+    const mW = Math.max(...aW, 1) * 1.02;
+    const bins = 20, bSz = mW / bins;
+    const aCt = Array(bins).fill(0), cCt = Array(bins).fill(0);
+    aW.forEach(w => aCt[Math.min(Math.floor(w / bSz), bins - 1)]++);
+    cW.forEach(w => cCt[Math.min(Math.floor(w / bSz), bins - 1)]++);
     makeOrUpdate('c-hist', {
       type: 'bar',
       data: {
-        labels: allCt.map((_, i) => (i * binSize).toFixed(1)),
+        labels: aCt.map((_, i) => (i * bSz).toFixed(1)),
         datasets: [
-          { label: 'All jobs',    data: allCt, backgroundColor: 'rgba(24,95,165,0.45)',  borderColor: '#185fa5', borderWidth: 1 },
-          { label: 'The Company', data: cCt,   backgroundColor: 'rgba(186,117,23,0.45)', borderColor: '#ba7517', borderWidth: 1 }
+          { label: 'All', data: aCt, backgroundColor: 'rgba(24,95,165,0.45)', borderColor: '#185fa5', borderWidth: 1 },
+          { label: 'Company', data: cCt, backgroundColor: 'rgba(186,117,23,0.45)', borderColor: '#ba7517', borderWidth: 1 }
         ]
       },
-      options: {
-        ...baseOpts,
-        scales: {
-          x: { ...baseOpts.scales.x, title: { display: true, text: 'Hours waiting before work begins', color: axisColor, font: tickFont } },
-          y: { ...baseOpts.scales.y, title: { display: true, text: 'Number of jobs',                   color: axisColor, font: tickFont } }
-        }
-      }
+      options: { ...bO, scales: {
+        x: { ...bO.scales.x, title: { display: true, text: 'Hours waiting', color: aCo, font: tF } },
+        y: { ...bO.scales.y, title: { display: true, text: 'Number of jobs', color: aCo, font: tF } }
+      }}
     });
   }
 }
 
 /* ── CSV upload ── */
-let csvRows = [];
-let csvHeaders = [];
-
-function handleDrop(e) {
-  e.preventDefault();
-  document.getElementById('csv-zone').classList.remove('drag-over');
-  const file = e.dataTransfer.files[0];
-  if (file) readCSV(file);
-}
-
-function handleFileSelect(e) {
-  const file = e.target.files[0];
-  if (file) readCSV(file);
-}
-
-function readCSV(file) {
-  const reader = new FileReader();
-  reader.onload = function(e) { processCSV(e.target.result, file.name); };
-  reader.readAsText(file);
-}
-
+let csvRows = [], csvHeaders = [];
+function handleDrop(e) { e.preventDefault(); document.getElementById('csv-zone').classList.remove('drag-over'); if (e.dataTransfer.files[0]) readCSV(e.dataTransfer.files[0]); }
+function handleFileSelect(e) { if (e.target.files[0]) readCSV(e.target.files[0]); }
+function readCSV(file) { const r = new FileReader(); r.onload = e => processCSV(e.target.result, file.name); r.readAsText(file); }
 function processCSV(text, filename) {
-  const lines = text.trim().split(/\r?\n/).filter(l => l.trim() !== '');
-  if (lines.length < 2) { alert('The file needs at least a header row and one row of data.'); return; }
-
+  const lines = text.trim().split(/\r?\n/).filter(l => l.trim());
+  if (lines.length < 2) { alert('Need header + data.'); return; }
   const delim = lines[0].includes('\t') ? '\t' : lines[0].includes(';') ? ';' : ',';
   csvHeaders = lines[0].split(delim).map(h => h.trim().replace(/^"|"$/g, ''));
-  csvRows    = lines.slice(1)
-    .map(l => l.split(delim).map(c => c.trim().replace(/^"|"$/g, '')))
-    .filter(r => r.some(c => c !== ''));
-
-  document.getElementById('csv-filename').textContent  = filename;
+  csvRows = lines.slice(1).map(l => l.split(delim).map(c => c.trim().replace(/^"|"$/g, ''))).filter(r => r.some(c => c));
+  document.getElementById('csv-filename').textContent = filename;
   document.getElementById('csv-row-count').textContent = csvRows.length + ' rows';
   document.getElementById('csv-success').classList.add('visible');
-
-  const autoMatch = {
-    'map-arrival': ['arrival','arrive','arrived','time','timestamp','order_time','order time'],
-    'map-service': ['service','process','processing','duration','job_time','job time','work','hours'],
-    'map-label':   ['label','company','customer','type','flag','is_company','the company']
-  };
-
-  ['map-arrival','map-service','map-label'].forEach(id => {
+  const auto = { 'map-arrival': ['arrival', 'time', 'timestamp'], 'map-service': ['service', 'process', 'duration', 'job_time', 'hours'], 'map-label': ['label', 'company', 'customer', 'flag'] };
+  ['map-arrival', 'map-service', 'map-label'].forEach(id => {
     const sel = document.getElementById(id);
-    sel.innerHTML = id === 'map-label' ? '<option value="">— not in my file —</option>' : '';
-    csvHeaders.forEach((h, i) => {
-      const opt = document.createElement('option');
-      opt.value = i;
-      opt.textContent = h;
-      sel.appendChild(opt);
-    });
-    const match = autoMatch[id].find(k => csvHeaders.some(h => h.toLowerCase().includes(k)));
-    if (match) {
-      const idx = csvHeaders.findIndex(h => h.toLowerCase().includes(match));
-      if (idx >= 0) sel.value = idx;
-    }
+    sel.innerHTML = id === 'map-label' ? '<option value="">— not in file —</option>' : '';
+    csvHeaders.forEach((h, i) => { const o = document.createElement('option'); o.value = i; o.textContent = h; sel.appendChild(o); });
+    const m = auto[id].find(k => csvHeaders.some(h => h.toLowerCase().includes(k)));
+    if (m) { const idx = csvHeaders.findIndex(h => h.toLowerCase().includes(m)); if (idx >= 0) sel.value = idx; }
     sel.onchange = updatePreviews;
   });
-
   document.getElementById('col-mapper').classList.add('visible');
   updatePreviews();
 }
-
 function updatePreviews() {
-  const show = (previewId, colIdx) => {
-    const el = document.getElementById(previewId);
-    if (colIdx === '' || colIdx === null || colIdx === undefined) { el.textContent = ''; return; }
-    const samples = csvRows.slice(0, 3).map(r => r[colIdx] || '—').join(', ');
-    el.textContent = 'First values: ' + samples;
-  };
+  const show = (pid, idx) => { const el = document.getElementById(pid); if (!idx && idx !== 0) { el.textContent = ''; return; } el.textContent = 'First: ' + csvRows.slice(0, 3).map(r => r[idx] || '—').join(', '); };
   show('prev-arrival', document.getElementById('map-arrival').value);
   show('prev-service', document.getElementById('map-service').value);
-  show('prev-label',   document.getElementById('map-label').value);
+  show('prev-label', document.getElementById('map-label').value);
 }
-
 function loadFromCSV() {
-  const arrCol = document.getElementById('map-arrival').value;
-  const svcCol = document.getElementById('map-service').value;
-  const lblCol = document.getElementById('map-label').value;
-
-  if (arrCol === '') { alert('Please choose which column holds the arrival times.'); return; }
-  if (svcCol === '') { alert('Please choose which column holds the processing times.'); return; }
-
-  document.getElementById('arr-input').value   = csvRows.map(r => r[arrCol]).filter(v => v !== '').join('\n');
-  document.getElementById('svc-input').value   = csvRows.map(r => r[svcCol]).filter(v => v !== '').join('\n');
-  document.getElementById('label-input').value = lblCol !== ''
-    ? csvRows.map(r => r[lblCol]).filter(v => v !== '').join('\n')
-    : '';
-
+  const a = document.getElementById('map-arrival').value, s = document.getElementById('map-service').value, l = document.getElementById('map-label').value;
+  if (a === '') { alert('Choose arrival column.'); return; }
+  if (s === '') { alert('Choose processing column.'); return; }
+  document.getElementById('arr-input').value = csvRows.map(r => r[a]).filter(v => v).join('\n');
+  document.getElementById('svc-input').value = csvRows.map(r => r[s]).filter(v => v).join('\n');
+  document.getElementById('label-input').value = l !== '' ? csvRows.map(r => r[l]).filter(v => v).join('\n') : '';
   document.getElementById('arr-input').scrollIntoView({ behavior: 'smooth', block: 'center' });
-  ['arr-input','svc-input','label-input'].forEach(id => {
-    const el = document.getElementById(id);
-    el.style.borderColor = 'var(--green)';
-    setTimeout(() => { el.style.borderColor = ''; }, 2000);
-  });
+  ['arr-input', 'svc-input', 'label-input'].forEach(id => { const el = document.getElementById(id); el.style.borderColor = 'var(--green)'; setTimeout(() => el.style.borderColor = '', 2000); });
 }
 
+document.getElementById('lines-out').textContent = getLines();
 update();
 </script>
 </body>
